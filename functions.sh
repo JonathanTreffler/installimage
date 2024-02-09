@@ -2196,7 +2196,7 @@ make_fstab_entry() {
   if grep -q '^/dev/disk/by-' <<< "$1"; then
     p='-part'
   else
-    p="$(echo $1 | grep nvme)"
+    p="$(echo $1 | grep -e nvme -e loop)"
     [ -n "$p" ] && p='p'
   fi
 
@@ -2337,7 +2337,7 @@ make_swraid() {
         local n=0
         for n in $(seq 1 $COUNT_DRIVES) ; do
           TARGETDISK="$(eval echo \$DRIVE${n})"
-          local p="$(echo $TARGETDISK | grep nvme)"
+          local p="$(echo $TARGETDISK | grep -e nvme -e loop)"
           [ -n "$p" ] && p='p'
           components="$components $TARGETDISK$p$PARTNUM"
         done
@@ -2390,7 +2390,7 @@ make_lvm() {
   if [ -n "$1" ] ; then
     local fstab=$1
     local disk=$DRIVE1
-    local p; p="$(echo "$disk" | grep nvme)"
+    local p; p="$(echo "$disk" grep -e nvme -e loop)"
     [ -n "$p" ] && p='p'
 
     # TODO: needs to be removed

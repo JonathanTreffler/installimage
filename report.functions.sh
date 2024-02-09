@@ -45,6 +45,6 @@ report_install() {
 #    -X POST \
 #    "https://$statsserver/api/v1/installimage/installations/$image_id/logs" > /dev/null
 #  debug "Sent debug.txt to statsserver: $(head -n 1 "$FOLD/install_report.headers")"
-#}
+}
 
 # vim: ai:ts=2:sw=2:et

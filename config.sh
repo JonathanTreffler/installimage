@@ -43,8 +43,8 @@ export STATSSERVER4="88.198.31.148"
 export STATSSERVER6="[2a01:4f8:0:a0a1::bad:1]"
 export HDDMINSIZE="7000000"
 
-export DNSRESOLVER=("185.12.64.1" "185.12.64.2")
-export DNSRESOLVER_V6=("2a01:4ff:ff00::add:1" "2a01:4ff:ff00::add:2")
+export DNSRESOLVER=("9.9.9.9" "149.112.112.112")
+export DNSRESOLVER_V6=("2620:fe::fe" "2620:fe::9")
 export NTPSERVERS=("ntp1.hetzner.de" "ntp2.hetzner.com" "ntp3.hetzner.net")
 export AUTH_DNS1="ns1.first-ns.de"
 export AUTH_DNS2="robotns2.second-ns.de"

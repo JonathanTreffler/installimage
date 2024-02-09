@@ -3133,7 +3133,7 @@ copy_mtab() {
 
 install_kernel() {
   if [ "$1" ]; then
-    execute_chroot_command "apt update && apt install -y linux-generic"; EXITCODE=$?
+    execute_chroot_command "apt update && apt install -y linux-image-generic"; EXITCODE=$?
     return $EXITCODE
   fi
 }

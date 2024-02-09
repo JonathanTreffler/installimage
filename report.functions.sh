@@ -16,6 +16,7 @@ filter_install_conf() {
 }
 
 report_install() {
+  :
 #  filter_install_conf < "$FOLD/install.conf" > "$FOLD/install.conf.filtered"
 #  local main_mac
 #  main_mac="$(main_mac)" || return 1

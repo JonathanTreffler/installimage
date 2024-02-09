@@ -3131,6 +3131,14 @@ copy_mtab() {
   fi
 }
 
+install_kernel() {
+  if [ "$1" ]; then
+    execute_chroot_command "apt install linux-generic"; EXITCODE=$?
+      if [ "$EXITCODE" -ne "0" ]; then
+       return $EXITCODE
+  fi
+}
+
 
 generate_new_sshkeys() {
   if [ "$1" ]; then

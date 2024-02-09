@@ -375,6 +375,11 @@ v6_main_ip="$(v6_main_ip)"
 set_hostname "$NEWHOSTNAME" "$(ip_addr_without_suffix "$v4_main_ip")" "$(ip_addr_without_suffix "$v6_main_ip")" || status_failed
 status_done
 
+status_busy_nostep "  Installing kernel"
+debug "# Installing kernel"
+install_kernel "NIL" || status_failed
+status_done
+
 if [[ "$GENERATE_NEW_SSH_HOST_KEYS" == no ]]; then
   debug '-G specified, skipping new SSH host key generation'
 else

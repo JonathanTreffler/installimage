@@ -3133,7 +3133,7 @@ copy_mtab() {
 
 install_kernel() {
   if [ "$1" ]; then
-    execute_chroot_command "apt install linux-generic"; EXITCODE=$?
+    execute_chroot_command "apt install -y linux-generic"; EXITCODE=$?
       if [ "$EXITCODE" -ne "0" ]; then
        return $EXITCODE
   fi

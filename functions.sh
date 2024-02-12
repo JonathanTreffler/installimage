@@ -2589,7 +2589,7 @@ encrypt_partitions() {
     local fstab="$1"
     local cryptpassword="$(echo "$2" | awk '{print $2}')"
     local dev
-    local dev_uuid
+    local dev_partuuid
 
     modprobe dm-crypt
 

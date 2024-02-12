@@ -2600,12 +2600,11 @@ encrypt_partitions() {
         else
           dev="$(echo "$line" | grep "crypted" | awk '{print $1}')"
         fi
-        echo -n "${cryptpassword}" | cryptsetup --cipher aes-xts-plain64 --key-size 256 --hash sha256 --iter-time 6000 --batch-mode luksFormat "$dev" -
-        dev_uuid=$(blkid $dev -o value -s UUID)
-        echo -n "${cryptpassword}" | cryptsetup --batch-mode luksOpen "$dev" "luks-${dev_uuid}" -
+        dev_partuuid=$(blkid $dev -o value -s PARTUUID)
+        echo -n "${cryptpassword}" | cryptsetup --type plain --cipher=serpent-xts-plain64 --key-size=512 --hash=sha512 --key-file=- --batch-mode open "$dev" "plain-${dev_partuuid}"
         touch "$FOLD/crypttab"
-        echo "luks-${dev_uuid} UUID=${dev_uuid} none luks" >> "$FOLD/crypttab"
-        sed -i -e "s+$dev+/dev/mapper/luks-${dev_uuid}+g" "$FOLD/fstab"
+        echo "plain-${dev_partuuid} PARTUUID=${dev_partuuid} none plain,cipher=serpent-xts-plain64,hash=sha512,size=512" >> "$FOLD/crypttab"
+        sed -i -e "s+$dev+/dev/mapper/plain-${dev_partuuid}+g" "$FOLD/fstab"
       fi
     done < $fstab
   fi

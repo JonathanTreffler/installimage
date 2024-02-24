@@ -72,9 +72,9 @@ if [ "$SYSARCH" == "aarch64" ]; then
   SYSARCH="arm64"
 fi
 
-if [ -d "/sys/firmware/efi" ]; then
-  UEFI=1
-fi
+#if [ -d "/sys/firmware/efi" ]; then
+#  UEFI=1
+#fi
 
 # functions
 # show text in a different color

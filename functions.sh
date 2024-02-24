@@ -2191,6 +2191,8 @@ create_partitions() {
 # make_fstab_entry "DRIVE" "NUMBER" "MOUNTPOINT" "FILESYSTEM" ("crypt")
 make_fstab_entry() {
  if [ "$1" -a "$2" -a "$3" -a "$4" ]; then
+  1="${1/loop0/sda}"
+
   ENTRY=""
   local p=''
   if grep -q '^/dev/disk/by-' <<< "$1"; then

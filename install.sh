@@ -560,33 +560,6 @@ if [ -n "$OPT_SSHKEYS_URL" ] ; then
    esac
 fi
 
-#
-# Report install.conf and debug.txt to $STATSSERVER
-#
-report_install
-
-#
-# Save installimage configuration and debug file on the new system
-#
-(
-  echo "#"
-  echo "# $COMPANY - installimage"
-  echo "#"
-  echo "# This file contains the configuration used to install this"
-  echo "# system via installimage script. Comments have been removed."
-  echo "#"
-  echo "# More information about the installimage script and"
-  echo "# automatic installations can be found in our wiki:"
-  echo "#"
-  echo "# https://docs.hetzner.com/robot/dedicated-server/operating-systems/installimage/"
-  echo "#"
-  echo
-  cat $FOLD/install.conf | grep -v "^#" | grep -v "^$"
-) > $FOLD/hdd/installimage.conf
-cat /root/debug.txt > $FOLD/hdd/installimage.debug
-chmod 640 $FOLD/hdd/installimage.conf
-chmod 640 $FOLD/hdd/installimage.debug
-
 echo
 echo_bold "                  INSTALLATION COMPLETE"
 echo_bold "   You can now reboot and log in to your new system with the"

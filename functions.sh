@@ -2191,47 +2191,47 @@ create_partitions() {
 # make_fstab_entry "DRIVE" "NUMBER" "MOUNTPOINT" "FILESYSTEM" ("crypt")
 make_fstab_entry() {
  if [ "$1" -a "$2" -a "$3" -a "$4" ]; then
-  replaced="${1/loop0/sda}"
+  #replaced="${1/loop0/sda}"
 
   ENTRY=""
   local p=''
-  if grep -q '^/dev/disk/by-' <<< "$replaced"; then
+  if grep -q '^/dev/disk/by-' <<< "$1"; then
     p='-part'
   else
-    p="$(echo $replaced | grep -e nvme -e loop)"
+    p="$(echo $1 | grep -e nvme -e loop)"
     [ -n "$p" ] && p='p'
   fi
 
   if [ "$4" = "swap" ] ; then
-    ENTRY="$replaced$p$2 none swap sw 0 0"
+    ENTRY="$1$p$2 none swap sw 0 0"
   elif [ "$4" = "esp" ] ; then
-    ENTRY="$replaced$p$2 $3 vfat umask=0077 0 1"
+    ENTRY="$1$p$2 $3 vfat umask=0077 0 1"
   elif [ "$3" = "lvm" ] ; then
-    ENTRY="# $replaced$p$2  belongs to LVM volume group '$4'"
+    ENTRY="# $1$p$2  belongs to LVM volume group '$4'"
   elif [ "$4" = "none" ] ; then
-    ENTRY="# $replaced$p$2  has no filesystem defined"
+    ENTRY="# $1$p$2  has no filesystem defined"
   elif [[ "$3" =~ ^btrfs\.[0-9A-Za-z]+ ]] ; then
-    ENTRY="# $replaced$p$2  belongs to btrfs volume '$3'"
+    ENTRY="# $1$p$2  belongs to btrfs volume '$3'"
   else
     if [ "$SYSTYPE" = "vServer" -a "$4" = 'ext4' ]; then
-      ENTRY="$replaced$p$2 $3 $4 defaults,discard 0 0"
+      ENTRY="$1$p$2 $3 $4 defaults,discard 0 0"
     else
-      ENTRY="$replaced$p$2 $3 $4 defaults 0 0"
+      ENTRY="$1$p$2 $3 $4 defaults 0 0"
     fi
   fi
 
   if [ "$5" = "crypt" ]; then
     if [ "$3" = "lvm" ] ; then
-      ENTRY="# $replaced$p$2  belongs to crypted LVM volume group '$4'"
+      ENTRY="# $1$p$2  belongs to crypted LVM volume group '$4'"
     elif [ "$4" = "none" ] ; then
-      ENTRY="# $replaced$p$2 crypted but has no filesystem defined"
+      ENTRY="# $1$p$2 crypted but has no filesystem defined"
     elif [[ "$3" =~ ^btrfs\.[0-9A-Za-z]+ ]] ; then
-      ENTRY="# $replaced$p$2  belongs to crypted btrfs volume '$3'"
+      ENTRY="# $1$p$2  belongs to crypted btrfs volume '$3'"
     else
       if [ "$SYSTYPE" = "vServer" -a "$4" = 'ext4' ]; then
-        ENTRY="$replaced$p$2 $3 $4 defaults,discard 0 0 # crypted"
+        ENTRY="$1$p$2 $3 $4 defaults,discard 0 0 # crypted"
       else
-        ENTRY="$replaced$p$2 $3 $4 defaults 0 0 # crypted"
+        ENTRY="$1$p$2 $3 $4 defaults 0 0 # crypted"
       fi
     fi
   fi

@@ -355,11 +355,11 @@ fi
 #
 # Setup network
 #
-inc_step
-status_busy "Setting up network config"
-((IPV4_ONLY == 1)) && debug '# IPV4_ONLY flag set. ignoring IPv6'
-setup_network_config
-status_donefailed $?
+#inc_step
+#status_busy "Setting up network config"
+#((IPV4_ONLY == 1)) && debug '# IPV4_ONLY flag set. ignoring IPv6'
+#setup_network_config
+#status_donefailed $?
 
 #
 # chroot commands

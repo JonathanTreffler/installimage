@@ -238,6 +238,7 @@ status_none "Formatting partitions"
 cat $FOLD/fstab | grep "^/dev/" > /tmp/fstab.tmp
 while read line ; do
   DEV="$(echo $line |cut -d " " -f 1)"
+  DEV="${DEV/sda/loop0p}"
   FS="$(echo $line |cut -d " " -f 3)"
 
   # check if filesystem on devices needs to be preserved

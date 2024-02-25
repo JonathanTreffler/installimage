@@ -2239,13 +2239,13 @@ make_fstab_entry() {
   echo $ENTRY >> "$FOLD/fstab"
 
   if [ "$3" = "/" ]; then
-    SYSTEMREALROOTDEVICE="$replaced$p$2"
+    SYSTEMREALROOTDEVICE="$1$p$2"
     if [ -z "$SYSTEMREALBOOTDEVICE" ]; then
-      SYSTEMREALBOOTDEVICE="$replaced$p$2"
+      SYSTEMREALBOOTDEVICE="$1$p$2"
     fi
   fi
   if [ "$3" = "/boot" ]; then
-    SYSTEMREALBOOTDEVICE="$replaced$p$2"
+    SYSTEMREALBOOTDEVICE="$1$p$2"
   fi
 
  fi

@@ -1335,10 +1335,10 @@ validate_vars() {
         return 1
       fi
 
-      # check if /boot partition has at least 200M
+      # check if /boot partition has at least 100M
       if [ "${PART_MOUNT[$i]}" = "/boot" -a "${PART_SIZE[$i]}" != "all" ]; then
-        if [ "${PART_SIZE[$i]}" -lt "200" ]; then
-          graph_error "ERROR: Your /boot partition has to be at least 200M (current size: ${PART_SIZE[$i]})"
+        if [ "${PART_SIZE[$i]}" -lt "100" ]; then
+          graph_error "ERROR: Your /boot partition has to be at least 100M (current size: ${PART_SIZE[$i]})"
           return 1
         fi
       fi
@@ -1813,15 +1813,15 @@ stop_bcache() {
 }
 
 deactivate_lvm() {
-  while read lv; do
-    debug "deactivating lv $lv"
-    lvchange -an "$lv" |& debugoutput || return 1
-  done < <(lvs --reportformat json | jq -r '.report[].lv[]|select(.lv_attr[4:5]=="a")|"\(.vg_name)/\(.lv_name)"')
+  #while read lv; do
+  #  debug "deactivating lv $lv"
+  #  lvchange -an "$lv" |& debugoutput || return 1
+  #done < <(lvs --reportformat json | jq -r '.report[].lv[]|select(.lv_attr[4:5]=="a")|"\(.vg_name)/\(.lv_name)"')
 
-  while read vg; do
-    debug "deactivating vg $vg"
-    vgchange -an "$vg" |& debugoutput || return 1
-  done < <(vgs --reportformat json | jq -r '.report[].vg[].vg_name')
+  #while read vg; do
+  #  debug "deactivating vg $vg"
+  #  vgchange -an "$vg" |& debugoutput || return 1
+  #done < <(vgs --reportformat json | jq -r '.report[].vg[].vg_name')
 }
 
 stop_md_arrays() {

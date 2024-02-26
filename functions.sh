@@ -1812,7 +1812,7 @@ stop_bcache() {
   done
 }
 
-deactivate_lvm() {
+#deactivate_lvm() {
   #while read lv; do
   #  debug "deactivating lv $lv"
   #  lvchange -an "$lv" |& debugoutput || return 1
@@ -1822,7 +1822,7 @@ deactivate_lvm() {
   #  debug "deactivating vg $vg"
   #  vgchange -an "$vg" |& debugoutput || return 1
   #done < <(vgs --reportformat json | jq -r '.report[].vg[].vg_name')
-}
+#}
 
 stop_md_arrays() {
   while read _ array _; do
@@ -1836,24 +1836,24 @@ stop_md_arrays() {
 #
 # Stop the Logical Volume Manager and all software RAID arrays.
 #
-stop_lvm_raid() {
-  debug 'running swapoff -a'
-  swapoff -a |& debugoutput || return 1
+#stop_lvm_raid() {
+  #debug 'running swapoff -a'
+  #swapoff -a |& debugoutput || return 1
 
-  if ! stop_bcache; then
-    debug 'stopping bcache devices failed'
-  fi
+  #if ! stop_bcache; then
+  #  debug 'stopping bcache devices failed'
+  #fi
 
-  if ! deactivate_lvm; then
-    debug 'deactivating lvm failed'
-    return 1
-  fi
+  #if ! deactivate_lvm; then
+  #  debug 'deactivating lvm failed'
+  #  return 1
+  #fi
 
-  debug 'running dmsetup remove_all'
-  [ -x "$(command -v dmsetup)" ] && dmsetup remove_all |& debugoutput
+  #debug 'running dmsetup remove_all'
+  #[ -x "$(command -v dmsetup)" ] && dmsetup remove_all |& debugoutput
 
-  stop_md_arrays
-}
+  #stop_md_arrays
+#}
 
 
 # delete partitiontable

@@ -2603,7 +2603,7 @@ encrypt_partitions() {
           dev="$(echo "$line" | grep "crypted" | awk '{print $1}')"
         fi
         dev_partuuid=$(blkid $dev -o value -s PARTUUID)
-        echo -n "${cryptpassword}" | cryptsetup --type plain --cipher=serpent-xts-plain64 --key-size=512 --hash=sha512 --key-file=- --batch-mode open "$dev" "plain-${dev_partuuid}"
+        cryptsetup --type plain --cipher=serpent-xts-plain64 --key-size=512 --hash=sha512 --key-file="${cryptpassword}" --batch-mode open "$dev" "plain-${dev_partuuid}"
         touch "$FOLD/crypttab"
         echo "plain-${dev_partuuid} /dev/sda2 none plain,cipher=serpent-xts-plain64,hash=sha512,size=512" >> "$FOLD/crypttab"
         sed -i -e "s+$dev+/dev/mapper/plain-${dev_partuuid}+g" "$FOLD/fstab"
